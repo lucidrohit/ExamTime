@@ -30,9 +30,10 @@ router.get("/:year/:branch/:sem/:material", async (req, res) => {
     const year = Number(req.params.year);
     const branch = req.params.branch;
     const sem = Number(req.params.sem);
-    const material = req.params.material;
+    let material = req.params.material;
 
-    let course = {year:year, branch:branch, sem:sem,material:material};
+   
+    let course = {year:year, branch:branch, sem:sem,material:(material)?material:"syllabus"};
     const {error} = validateCourse(course);
     const status = 400;
 
@@ -42,7 +43,15 @@ router.get("/:year/:branch/:sem/:material", async (req, res) => {
 
     course = await College.findOne({ branch: branch, year: year });
     
-    res.render("materialAdmin", course.semester[sem][material]);
+    material = course.semester[sem][material]
+    let studentInfo = {
+        year: year,
+        branch: branch,
+        level:"student",
+        material:material
+    }
+
+    res.render("materialStudent", studentInfo);
 })
 
 

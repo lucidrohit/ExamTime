@@ -42,7 +42,7 @@ router.get("/:year/:branch/:sem/:material", async (req, res) => {
     const sem = Number(req.params.sem);
     const material = req.params.material;
 
-    let course = {year:year, branch:branch, sem:sem,material:material};
+    let course = {year:year, branch:branch, sem:sem,material:(material)?material:"syllabus"};
 
     const {error} = validateCourse(course);
     const status = 400;
@@ -66,13 +66,13 @@ router.post("/:year/:branch/:sem/:material", async (req, res) => {
     
     const {error} = validateCourse(course);
     const status = 400;
-    const message = error.message;
+    let message = "Something went Wrong";
     if(error) return res.render("error", {status, message})
 
         
     let validbody = validateBody(req.body)
     message = validbody
-    if(message) return res.render("error", {status, message});
+    if(message.error) return res.render("error", {status, message});
     
     course = await College.findOne({ branch: branch, year: year })
     

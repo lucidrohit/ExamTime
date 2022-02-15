@@ -1,0 +1,54 @@
+<%- include("./partials/materialHeader") %>
+
+<main style="width:70vw; margin:auto; margin-top:150px">
+
+    <div class="flex flex-col">
+        <div class="overflow-x-auto sm:-mx-6 lg:-mx-8" style="max-height: 50vh;">
+          <div class=" inline-block min-w-full sm:px-6 lg:px-8">
+            <div >
+              <table class="min-w-full text-center" style="position: relative;">
+                <thead class="border-b bg-gray-800" style="position: sticky; top:0;" >
+                  <tr>
+                    <th scope="col" class="text-sm font-medium text-white px-6 py-4">
+                      Sno.
+                    </th>
+                    <th scope="col" class="text-sm font-medium text-white px-6 py-4">
+                      Subject
+                    </th>
+                    <th scope="col" class="text-sm font-medium text-white px-6 py-4">
+                      Link
+                    </th>
+                  </tr>
+                </thead class="border-b">
+                <tbody class="overflow-hidden">
+                   <% for (let i=0; i < material.length; i++){ %>
+                  <tr class="bg-white border-b">
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"><%= i+1 %></td>
+                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                      <%= material[i]["subjectName"] %>
+                    </td>
+                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                      <a href='<%= material[i]["subjectLink"] %>' class="text-indigo-600 hover:text-indigo-500 underline">Link</a>
+                    </td>
+                  </tr >
+                <% } %>
+                  
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+  </main>
+
+  <style>
+      footer{
+          position: absolute;
+          bottom: 40px;
+          left: 20vw;
+      }
+  </style>
+
+  <%- include("./partials/footer") %>
