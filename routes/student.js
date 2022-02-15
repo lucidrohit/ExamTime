@@ -31,6 +31,7 @@ router.get("/:year/:branch/:sem/:material", async (req, res) => {
     const branch = req.params.branch;
     const sem = Number(req.params.sem);
     let material = req.params.material;
+    let mName = material
 
    
     let course = {year:year, branch:branch, sem:sem,material:(material)?material:"syllabus"};
@@ -48,7 +49,9 @@ router.get("/:year/:branch/:sem/:material", async (req, res) => {
         year: year,
         branch: branch,
         level:"student",
-        material:material
+        material:material,
+        sem:sem,
+        mName:mName
     }
 
     res.render("materialStudent", studentInfo);

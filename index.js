@@ -8,9 +8,7 @@ const mongoose = require("mongoose")
 const {home} = require('./routes/home');
 const admin = require('./routes/admin');
 const student = require('./routes/student');
-// const collegeAdmin = require('./routes/collegeAdmin');
-// const collegeStudent = require('./routes/collegeStudent');
-// const material = require('./routes/material');
+
 const error = require('./routes/error');
 
 const port = process.env.PORT || 3000;
@@ -40,7 +38,7 @@ app.use("/", home);
 app.use("/student", student);
 app.use("/admin", admin);
 app.use("/error", error)
-// app.get("/material", material);
+
 
 
 app.listen(port, ()=>{

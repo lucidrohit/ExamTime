@@ -1,3 +1,84 @@
 <%- include("./partials/materialHeader") %>
+<main style="width:70vw; margin:auto; margin-top:150px">
 
+    <h1 class="text-5xl font-bold pr-10 mb-3 text-indigo-600 relative flex justify-center items-center capitalize -top-10"><%= material %></h1>
+    <div class="flex flex-col">
+        <div class="overflow-x-auto sm:-mx-4 lg:-mx-8 " style="height: 50vh;">
+          <div class=" inline-block min-w-full sm:px-6 lg:px-8">
+            <div >
+              <table class="min-w-full text-center" style="position: relative;">
+                <thead class="border-b bg-gray-800" style="position: sticky; top:0;" >
+                  <tr>
+                    <th scope="col" class="text-sm font-medium text-white px-6 py-4">
+                      Sno.
+                    </th>
+                    <th scope="col" class="text-sm font-medium text-white px-6 py-4">
+                      Subject
+                    </th>
+                    <th scope="col" class="text-sm font-medium text-white px-6 py-4">
+                      Link
+                    </th>
+                    <th scope="col" class="text-sm font-medium text-white px-6 py-4">
+                      update/delete
+                    </th>
+                  </tr>
+                </thead >
+                <tbody class="overflow-hidden  sm:-mx-4 lg:-mx-8 ">
+                    <% for(let i = 0; i < course.length; i++) { %>
+                  <tr class="bg-white border-b">
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                        <%= i+1 %>
+                    </td>
+                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                     <%=  course[i]["subjectName"] %>
+                    </td>
+                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                      <a href= '<%=   course[i]["subjectLink"] %>' class="text-indigo-600 hover:underline hover:text-indigo-700">
+                        link
+                        </a>
+                    </td>
+                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                      <!-- <button class="mr-3 border-2 rounded border-gray-500 px-2 py-1  hover:bg-gray-900 hover:text-white"><i class="fa fa-solid fa-eye"></i></button> -->
+                      <form action="/<%=level %>/delete/<%= year %>/<%= branch %>/<%= sem %>/<%= material %>/<%= i %>" method="get">
+                          <input style="display:none;" type="text" name="index" value="<%= i %>" id="">
+                          <button type="submit" class="mr-3 border-2 rounded border-gray-500 px-2 py-1  hover:bg-gray-900 hover:text-white">
+                              <i class="fa fa-solid fa-trash"></i>
+                            </button>
+                        </form>
+
+                    </td>
+                  </tr >
+                <% } %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <table class="min-w-full text-center">
+          <tbody class="border-b bg-gray-800"  >
+            <style>
+              .inputfield:hover{
+                background: rgb(31,41,55) !important;
+              }
+            </style>
+            <form action="/<%=level %>/<%= year %>/<%= branch %>/<%= sem %>/<%= material %>" method="post">
+                <tr class="bg-gray-800 border-b hover:bg-none inputfield">
+                  <td class="px-10 py-4 whitespace-nowrap text-sm font-medium text-white">#</td>
+                  <td class="text-sm text-white font-light py-4 whitespace-nowrap">
+                    <input  placeholder="maths" type="text" id="name" name="subjectName" class=" bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-4 transition-colors duration-200 ease-in-out">
+                  </td>
+                  <td class="text-sm text-white font-light  py-4 whitespace-nowrap">
+                    <input placeholder="https://drive.google.com/file/" type="text" id="name" name="subjectLink" class=" bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-4 transition-colors duration-200 ease-in-out">
+                  </td>
+                  <td class="text-sm text-white font-light px-10 py-4 whitespace-nowrap">
+                    <button type="submit" class=" border-2 rounded border-gray-500 px-2 py-1  hover:bg-gray-900 hover:text-white"><i class="fa fa-solid fa-check"></i></button>
+                  </td>
+                </tr >
+            </form>
+          </tbody >
+        </table>
+      </div>
+
+
+  </main>
 <%- include("./partials/footer") %>

@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/styles.css">
     <link rel="stylesheet" href="./css/normalize.css">
-    <link rel="shortcut icon" href='"https://i.ibb.co/4tSpxPS/clock.webp'" type="image/x-icon">
+    <link rel="shortcut icon" href='https://i.ibb.co/4tSpxPS/clock.webp' type="image/x-icon">
+    <script src="https://kit.fontawesome.com/112a599fe6.js" crossorigin="anonymous"></script>
     <!-- <link rel="stylesheet" href="./css/tailwind.css"> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" referrerpolicy="no-referrer" />
     <title>Exam Time</title>
@@ -41,27 +42,27 @@
                   <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
                   <a href="/" class="hover:bg-gray-700 text-white px-3 py-2 rounded-md text-sm font-medium" aria-current="page">Home</a>
     
-                  <form action="/<%= level %>/<%= year %>/<%= branch %>/0/syllabus" method="get">
+                  <form action="/<%= level %>/<%= year %>/<%= branch %>/<%= sem %>/syllabus" method="get">
                     <button type="submit" class="text-gray-300 hover:bg-gray-900 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
                       Syllabus
                     </button>
                   </form>
-                  <form action="/<%= level %>/<%= year %>/<%= branch %>/0/notes" method="get">
+                  <form action="/<%= level %>/<%= year %>/<%= branch %>/<%= sem %>/notes" method="get">
                     <button type="submit" class="text-gray-300 hover:bg-gray-900 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
                       Notes
                     </button>
                   </form>
-                  <form action="/<%= level %>/<%= year %>/<%= branch %>/0/pyqs" method="get">
+                  <form action="/<%= level %>/<%= year %>/<%= branch %>/<%= sem %>/pyqs" method="get">
                     <button type="submit" class="text-gray-300 hover:bg-gray-900 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
                       PYQ's
                     </button>
                   </form>
-                  <form action="/<%= level %>/<%= year %>/<%= branch %>/0/books" method="get">
+                  <form action="/<%= level %>/<%= year %>/<%= branch %>/<%= sem %>/books" method="get">
                     <button type="submit" class="text-gray-300 hover:bg-gray-900 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
                       Books
                     </button>
                   </form>
-                  <form action="/<%= level %>/<%= year %>/<%= branch %>/0/pattern" method="get">
+                  <form action="/<%= level %>/<%= year %>/<%= branch %>/<%= sem %>/pattern" method="get">
                     <button type="submit" class="text-gray-300 hover:bg-gray-900 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
                       Pattern
                     </button>
