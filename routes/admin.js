@@ -57,6 +57,28 @@ router.get("/:year/:branch/:sem/:material", async (req, res) => {
 })
 
 
+router.post("/:year/:branch/:sem/:material", async (req, res) => {
+
+    const year = Number(req.params.year);
+    const branch = req.params.branch;
+    const sem = Number(req.params.sem);
+    const material = req.params.material;
+
+    let course = {year:year, branch:branch, sem:sem,material:material};
+    
+    const {error} = validateCourse(course);
+    if(error) return res.status(400).send(error.message)
+
+        
+    let validbody = validateBody(req.body)
+    if(validbody.error) return res.status(400).send(`${validbody.error}`);
+    
+    course = await College.findOne({ branch: branch, year: year })
+    
+    course.semester[sem][material].push(req.body);
+    await course.save();
+    res.send(course.semester[sem][material])
+})
 
 
 
