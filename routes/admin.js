@@ -53,7 +53,7 @@ router.get("/:year/:branch/:sem/:material", async (req, res) => {
 
     course = await College.findOne({ branch: branch, year: year });
     
-    res.send(course.semester[sem][material]);
+    res.render("materialAdmin", course.semester[sem][material]);
 })
 
 
@@ -77,7 +77,7 @@ router.post("/:year/:branch/:sem/:material", async (req, res) => {
     
     course.semester[sem][material].push(req.body);
     await course.save();
-    res.send(course.semester[sem][material])
+    res.render("materialAdmin", course.semester[sem][material])
 })
 
 
@@ -116,7 +116,7 @@ router.put("/:year/:branch/:sem/:material/:subject", async (req, res) => {
     course.semester[sem][material][foundIndex]["subjectLink"] = (!req.body.subjectLink)?course.semester[sem][material][foundIndex]["subjectLink"]:req.body.subjectLink;
 
     await course.save();
-    res.send(course.semester[sem][material])
+    res.render("materialAdmin",course.semester[sem][material])
 })
 
 
@@ -150,7 +150,7 @@ router.delete("/:year/:branch/:sem/:material/:subject", async (req, res) => {
     course.semester[sem][material].splice(foundIndex,1);
 
     await course.save();
-    res.send(course.semester[sem][material])
+    res.render("materialAdmin",course.semester[sem][material])
 })
 
 
