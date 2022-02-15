@@ -12,8 +12,8 @@ const schema = Joi.object({
             .max(3)
             .valid(...["bele", "bmec", "bmme", "bele", "bece", "bite", "bcse", "bciv"]),
     yearNo: Joi.number(),
-    level:Joi.string().max(10)
-
+    level:Joi.string().max(10),
+    material:Joi.string().max(20)
 });
 
 

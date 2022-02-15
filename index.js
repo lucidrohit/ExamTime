@@ -2,11 +2,12 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const ejs = require('ejs');
+const mongoose = require("mongoose")
 // const helmet = require('helmet');
 
-const home = require('./routes/home');
-const student = require('./routes/student');
+const {home} = require('./routes/home');
 const admin = require('./routes/admin');
+const student = require('./routes/student');
 // const collegeAdmin = require('./routes/collegeAdmin');
 // const collegeStudent = require('./routes/collegeStudent');
 // const material = require('./routes/material');
@@ -26,14 +27,13 @@ mongoose.connect("mongodb://localhost/college")
 
 
 
-app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.static('public'));
 app.use(express.urlencoded({extended:true}));
 app.use(express.json());
 // app.use(helmet());
 
 
 app.set("view engine", "ejs");
-app.set('views', path.join(__dirname, 'views'));
 
 
 app.use("/", home);

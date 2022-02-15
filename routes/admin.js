@@ -1,32 +1,28 @@
 const express = require('express');
 const router = express.Router();
-const { materialSchema } = require("../models/material");
+const mongoose = require("mongoose")
 const {validateCourse} = require("../models/validation");
 const {validateBody} = require("../models/validation");
-
-const Joi = require('joi');
 const {validateStudent} = require("../models/session")
+const Joi = require('joi');
+
 
 const currentYear = new Date().getFullYear();
 
 
-const College = mongoose.model("nitsri", new mongoose.Schema({
-    year: Number,
-    branch: String,
-    semester: [materialSchema]
-}))
-
+const {College} = require("./home")
 
 
 router.post("/", (req, res) => {
     let studentEnroll = req.body.studentEnroll;
     const password = req.body.password;
-
+    const material = "syllabus"
     let studentInfo = {
         year: Number(studentEnroll.slice(0,4)),
         branch: studentEnroll.slice(4,8),
         yearNo: currentYear-Number(studentEnroll.slice(0,4)),
-        level:"admin"
+        level:"admin",
+        material:material
     }
 
     let message = validateStudent(studentInfo);

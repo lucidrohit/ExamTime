@@ -1,26 +1,23 @@
 const express = require('express');
+const mongoose = require("mongoose")
 const router = express.Router();
-const { materialSchema } = require("../models/material");
 const Joi = require('joi');
 const {validateStudent} = require("../models/session")
-
+const {validateCourse} = require("../models/validation");
 const currentYear = new Date().getFullYear();
 
-const College = mongoose.model("nitsri", new mongoose.Schema({
-    year: Number,
-    branch: String,
-    semester: [materialSchema]
-}))
+const {College} = require("./home")
 
 
 router.post("/", (req, res) => {
     let studentEnroll = req.body.studentEnroll;
-
+    const material = "syllabus";
     let studentInfo = {
         year: Number(studentEnroll.slice(0,4)),
         branch: studentEnroll.slice(4,8),
         yearNo: currentYear-Number(studentEnroll.slice(0,4)),
-        level:"student"
+        level:"student",
+        material:material
     }
 
     const message = validateStudent(studentInfo);
@@ -29,7 +26,24 @@ router.post("/", (req, res) => {
     
 });
 
+router.get("/:year/:branch/:sem/:material", async (req, res) => {
+    const year = Number(req.params.year);
+    const branch = req.params.branch;
+    const sem = Number(req.params.sem);
+    const material = req.params.material;
 
+    let course = {year:year, branch:branch, sem:sem,material:material};
+    const {error} = validateCourse(course);
+    const status = 400;
+
+    const message = "Something wrong happened";
+
+    if(error) return res.render("error", {status, message})
+
+    course = await College.findOne({ branch: branch, year: year });
+    
+    res.render("materialAdmin", course.semester[sem][material]);
+})
 
 
 

@@ -730,6 +730,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 .pl-3 {
   padding-left: 0.75rem;
 }
+.pb-0 {
+  padding-bottom: 0px;
+}
 .pb-20 {
   padding-bottom: 5rem;
 }
