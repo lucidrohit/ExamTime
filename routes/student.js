@@ -1,9 +1,16 @@
 const express = require('express');
 const router = express.Router();
+const { materialSchema } = require("../models/material");
 const Joi = require('joi');
 const {validateStudent} = require("../models/session")
 
 const currentYear = new Date().getFullYear();
+
+const College = mongoose.model("nitsri", new mongoose.Schema({
+    year: Number,
+    branch: String,
+    semester: [materialSchema]
+}))
 
 
 router.post("/", (req, res) => {
