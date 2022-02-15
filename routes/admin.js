@@ -120,6 +120,41 @@ router.put("/:year/:branch/:sem/:material/:subject", async (req, res) => {
 })
 
 
+router.delete("/:year/:branch/:sem/:material/:subject", async (req, res) => {
+
+    const year = Number(req.params.year);
+    const branch = req.params.branch;
+    const sem = Number(req.params.sem);
+    const material = req.params.material;
+    const subject = req.params.subject;
+
+    let course = {year:year, branch:branch, sem:sem,material:material};
+    
+    const {error} = validateCourse(course);
+    if(error) return res.status(400).send(error.message)
+    
+    course = await College.findOne({ branch: branch, year: year })
+
+    let found = course.semester[sem][material];
+    let foundIndex = -1;
+
+    for (let i=0; i<found.length; i++){
+
+        if(found[i]["subjectName"].trim()===subject){
+            foundIndex = i;
+        }
+    }
+    
+    if(foundIndex ===-1) {return res.send(`Not founded ${foundIndex}`)}
+
+    course.semester[sem][material].splice(foundIndex,1);
+
+    await course.save();
+    res.send(course.semester[sem][material])
+})
+
+
+
 
 
 module.exports = router;
