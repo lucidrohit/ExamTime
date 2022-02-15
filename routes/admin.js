@@ -49,7 +49,9 @@ router.get("/:year/:branch/:sem/:material", async (req, res) => {
     let course = {year:year, branch:branch, sem:sem,material:material};
 
     const {error} = validateCourse(course);
-    if(error) return res.status(400).send(error.message)
+    const status = 400;
+    const message = error.message;
+    if(error) return res.render("error", {status, message})
 
     course = await College.findOne({ branch: branch, year: year });
     
@@ -67,11 +69,14 @@ router.post("/:year/:branch/:sem/:material", async (req, res) => {
     let course = {year:year, branch:branch, sem:sem,material:material};
     
     const {error} = validateCourse(course);
-    if(error) return res.status(400).send(error.message)
+    const status = 400;
+    const message = error.message;
+    if(error) return res.render("error", {status, message})
 
         
     let validbody = validateBody(req.body)
-    if(validbody.error) return res.status(400).send(`${validbody.error}`);
+    message = validbody
+    if(message) return res.render("error", {status, message});
     
     course = await College.findOne({ branch: branch, year: year })
     
@@ -92,11 +97,14 @@ router.put("/:year/:branch/:sem/:material/:subject", async (req, res) => {
     let course = {year:year, branch:branch, sem:sem,material:material};
     
     const {error} = validateCourse(course);
-    if(error) return res.status(400).send(error.message)
+    let status = 400;
+    let message = error.message;
+    if(error) return res.render("error", {status, message})
 
 
     let validbody = validateBody(req.body)
-    if(validbody.error) return res.status(400).send(`${validbody.error}`);
+    message = validbody.error;
+    if(message) return res.render("error", {status, message});
     
     course = await College.findOne({ branch: branch, year: year })
 
@@ -109,8 +117,8 @@ router.put("/:year/:branch/:sem/:material/:subject", async (req, res) => {
             foundIndex = i;
         }
     }
-    
-    if(foundIndex ===-1) {return res.send(`Not founded ${foundIndex}`)}
+    message = `Not founded ${foundIndex}`
+    if(foundIndex ===-1) {return res.render("error", message)}
 
     course.semester[sem][material][foundIndex]["subjectName"] = req.body.subjectName;
     course.semester[sem][material][foundIndex]["subjectLink"] = (!req.body.subjectLink)?course.semester[sem][material][foundIndex]["subjectLink"]:req.body.subjectLink;
@@ -131,7 +139,9 @@ router.delete("/:year/:branch/:sem/:material/:subject", async (req, res) => {
     let course = {year:year, branch:branch, sem:sem,material:material};
     
     const {error} = validateCourse(course);
-    if(error) return res.status(400).send(error.message)
+    let status = 400;
+    let message = error.message;
+    if(error) return res.render("error", {status, message})
     
     course = await College.findOne({ branch: branch, year: year })
 
@@ -145,7 +155,8 @@ router.delete("/:year/:branch/:sem/:material/:subject", async (req, res) => {
         }
     }
     
-    if(foundIndex ===-1) {return res.send(`Not founded ${foundIndex}`)}
+    message = `Not founded ${foundIndex}`
+    if(foundIndex ===-1) {return res.render("error", message)}
 
     course.semester[sem][material].splice(foundIndex,1);
 
