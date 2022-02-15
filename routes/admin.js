@@ -1,9 +1,20 @@
 const express = require('express');
 const router = express.Router();
+const { materialSchema } = require("../models/material");
+const {validateCourse} = require("../models/validation");
+const {validateBody} = require("../models/validation");
+
 const Joi = require('joi');
 const {validateStudent} = require("../models/session")
 
 const currentYear = new Date().getFullYear();
+
+
+const College = mongoose.model("nitsri", new mongoose.Schema({
+    year: Number,
+    branch: String,
+    semester: [materialSchema]
+}))
 
 
 
@@ -26,6 +37,25 @@ router.post("/", (req, res) => {
     (password=="admin123")?res.render("session", studentInfo):res.render("error", {message, status});
     
 });
+
+
+
+router.get("/:year/:branch/:sem/:material", async (req, res) => {
+    const year = Number(req.params.year);
+    const branch = req.params.branch;
+    const sem = Number(req.params.sem);
+    const material = req.params.material;
+
+    let course = {year:year, branch:branch, sem:sem,material:material};
+
+    const {error} = validateCourse(course);
+    if(error) return res.status(400).send(error.message)
+
+    course = await College.findOne({ branch: branch, year: year });
+    
+    res.send(course.semester[sem][material]);
+})
+
 
 
 
